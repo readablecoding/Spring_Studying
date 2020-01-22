@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlegacy.ex3.dao.CustomerMapper">
+	<!-- 회원 가입 시작 -->
+	<insert id="insertCustomer" parameterType="customer">
+		insert into customer(
+			custid
+			,password
+			,name  
+			,email
+			,division
+			,idno  
+			,address	
+		)values(
+			#{custid}
+			,#{password}
+			,#{name} 
+			,#{email} 
+			,#{division}
+			,#{idno}  
+			,#{address}	
+		)
+	</insert>	
+	<!-- 회원 가입 종료 -->
+	
+	<!-- 회원 목록 조회 시작 -->
+	<select id="selectCustomerAll" resultType="customer">
+		select
+			custid
+			,name  
+			,email
+			,division
+			,address	
+		from
+			customer
+		order by
+			name
+	</select>
+	<!-- 회원 목록 조회 종료 -->
+	
+	<!-- 회원 정보 삭제 시작-->
+	<delete id="deleteCustomer" parameterType="string">
+		delete from
+			customer
+		where 
+			custid = #{custid}
+	</delete>
+	<!-- 회원 정보 삭제 종료-->
+	
+	<!--HashMap을 사용  -->
+	<delete id="deleteCustomer2" parameterType="hashmap">
+		delete from
+			customer
+		where 
+			custid = #{custid}
+		and
+			password = #{password}
+	</delete>
+	<!-- HashMap을 사용  -->
+	
+	<!-- 회원 1명 정보 가져오기 시작  -->
+	<select id="selectCustomerOne" parameterType="string" resultType="customer">
+		select
+			custid
+			,password
+			,name  
+			,email
+			,division
+			,idno
+			,address	
+		from
+			customer
+		where
+			custid = #{custid}
+	</select>
+	<!-- 회원 1명 정보 가져오기 종료-->
+	
+	<!-- 회원 정보 수정 시작-->
+		<update id="updateCustomer" parameterType="customer">
+			update
+				customer
+			set
+				password = #{password}
+				,name = #{name}
+				,email = #{email}
+				,address = #{address}
+			where
+				custid = #{custid}		
+		
+		</update>
+	<!-- 회원 정보 수정 시작-->
+	
+</mapper>

@@ -78,7 +78,7 @@ public class MemoController {
 		}
 		logger.info("메모 등록 종료");
 		
-		return "redirect:/";	
+		return "redirect:selectMemo";	
 	}
 	
 	/**

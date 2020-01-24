@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swdo.memo.dao.MemoMapper">
+	
+	<!--insert 시작 -->
+	<insert id="insertMemo" parameterType="memo">	
+		insert into memo(
+			memo_no
+			,memo_pw	
+			,memo_content
+			,memo_indate	
+		)
+		values(
+			memo_seq.nextval
+			,#{memo_pw}
+			,#{memo_content}
+			,sysdate	
+		)	
+	</insert>
+	<!--insert 종료 -->
+	
+	
+	<!-- select 시작 -->
+	<select id="selectMemo" resultType="memo">
+		select
+			memo_no
+			,memo_content
+			,to_char(memo_indate, 'yyyy-mm-dd') as memo_indate
+		from 
+			memo	
+		order by
+			memo_no desc
+	</select>
+	<!-- select 종료 -->
+	
+
+	<!-- delete 시작 -->
+	<delete id="deleteMemo" parameterType="hashmap">
+		delete from
+			memo
+		where 
+			memo_no = ${memo_no}
+		and 
+			memo_pw = ${memo_pw}		
+	</delete>
+	<!-- delete 시작 -->
+
+</mapper>

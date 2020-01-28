@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlegacy.homework.dao.MemoMapper">
+	
+	<insert id="insertMemo" parameterType="memo">
+		insert into
+			memo(
+				memo_no
+				,memo_pw
+				,memo_content
+			)values(
+				memo_seq.nextval
+				,#{memo_pw}
+				,#{memo_content}
+			)
+	</insert>
+	
+	<select id="selectMemoAll" resultType="memo">
+		select
+			memo_no
+			,memo_content
+			,to_char(memo_indate, 'yyyy-MM-dd') as memo_indate
+		from
+			memo
+		order by
+			memo_no desc
+	</select>
+	
+	<delete id="deleteMemo" parameterType="memo">
+		delete from
+			memo
+		where
+			memo_no = #{memo_no}
+		and
+			memo_pw = #{memo_pw}
+	</delete>
+	
+</mapper>

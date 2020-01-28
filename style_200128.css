@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.nomemo{
+	text-align: center;
+	font-size: 30px;
+}
+
+.wrap{
+	width: 800px;
+	margin: 30px auto;
+	text-align: center;
+}
+
+.wrap table{
+	width: 600px;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+.wrap table tr th , .wrap table tr td {
+	border: 1px solid #cccccc;
+	height: 50px;
+}

@@ -1,0 +1,15 @@
+[ sampleSpringMybatis 예제에서 사용할 테이블 ]
+
+--게시판을 저장하는 테이블--
+create table notice (
+	notice_no 			number				primary key
+	,notice_title 		varchar2(5) 		not null
+	,notice_context 	varchar2(2000) 		not null
+	,notice_name 		varchar2(50)		not null
+	,notice_hits		number				default 0
+	,notice_indate		date				default sysdate
+	,notice_savedfile	varchar2(200)		
+	,notcie_originfile	varchar2(200)
+);
+
+create sequence notice_sequence;

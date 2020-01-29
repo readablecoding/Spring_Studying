@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.sample.dao.noticeMapper">
+	
+	<insert id="noticeInsert" parameterType="notice">
+		insert into
+			notice(
+				notice_no
+				,notice_title
+				,notice_context
+				,notice_name
+				<if test="notice_savedfile != null and notcie_originfile != null">
+					,notice_savedfile
+					,notcie_originfile	
+				</if>	
+		)values(
+				notice_sequence.nextval
+				,#{notice_title}
+				,#{notice_context}
+				,#{notice_name}
+				<if test="notice_savedfile != null and notcie_originfile != null">
+					,#{notice_savedfile}
+					,#{notcie_originfile}	
+				</if>
+		)	
+	</insert>
+
+</mapper>

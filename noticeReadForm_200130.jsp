@@ -8,7 +8,7 @@
 <title>[게시판 읽기 폼]</title>
 <script type="text/javascript">
 	function download(notice_no){
-	location.href="download?notice_no="+notice_no;
+		location.href="download?notice_no="+notice_no;
 	}
 </script>
 </head>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.sample.dao.noticeMapper">
+	
+	<insert id="noticeInsert" parameterType="notice">
+		insert into
+			notice(
+				notice_no
+				,notice_title
+				,notice_context
+				,notice_name
+				<if test="notice_savedfile != null and notice_originfile != null">
+					,notice_savedfile
+					,notice_originfile	
+				</if>	
+		)values(
+				notice_sequence.nextval
+				,#{notice_title}
+				,#{notice_context}
+				,#{notice_name}
+				<if test="notice_savedfile != null and notice_originfile != null">
+					,#{notice_savedfile}
+					,#{notice_originfile}	
+				</if>
+		)	
+	</insert>
+	
+	<select id="noticeSelectList" resultType="notice">
+		select
+				notice_no
+				,notice_title
+				,notice_name
+				,notice_hits
+				,notice_savedfile
+				,notice_originfile
+				,to_char(notice_indate, 'yyyy-MM-dd') as notice_indate
+		from
+				notice
+		order by
+				notice_no desc
+	</select>
+	
+	<select id="noticeSelectCount" resultType="int">
+		select
+			count(*)
+		from
+			notice
+	</select>
+	
+	<select id="noticeSelectOne" parameterType="int" resultType="notice">
+		select
+			notice_no
+			,notice_title
+			,notice_context
+			,notice_name
+			,notice_hits
+			,notice_savedfile
+			,notice_originfile
+			,to_char(notice_indate, 'yyyy-MM-dd') as notice_indate
+		from
+			notice
+		where 
+			notice_no = #{notice_no}
+	</select>
+
+	<update id="noticeUpdate" parameterType="notice">
+		update 
+			notice
+		set
+			notice_name	= #{notice_name}
+			,notice_title	=#{notice_title}
+			,notice_context	=#{notice_context}
+			<if test="notice_savedfile != null and notice_originfile != null">
+				,notice_savedfile = #{notice_savedfile}
+				,notice_originfile = #{notice_originfile}
+			</if>
+		where
+			notice_no = #{notice_no}
+	</update>
+	
+	<update id="updateHits" parameterType="int">
+		update
+			notice
+		set
+			notice_hits = notice_hits + 1
+		where
+			notice_no = #{notice_no}
+	</update>
+</mapper>

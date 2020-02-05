@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.sample.dao.MemberMapper">
+	
+	<select id="memberSelectOne" parameterType="string" resultType="member">
+		select 
+			member_id
+			,member_pw
+			,member_nm
+			,member_addr
+			,to_char(member_indate, 'yyyy-MM-dd') as member_indate
+		from
+			member
+		where
+			member_id = #{member_id}
+	</select>
+
+	<insert id="memberInsert" parameterType="member">
+		insert into
+			member(
+				member_id
+				,member_pw
+				,member_nm
+				,member_addr
+			)
+			values(
+				#{member_id}
+				,#{member_pw}
+				,#{member_nm}
+				,#{member_addr}
+			)
+	</insert>
+	
+</mapper>

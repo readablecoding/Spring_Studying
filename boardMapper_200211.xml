@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.sample.dao.BoardMapper">
+	
+	<select id="selectBoardList" parameterType="string" resultType="hashmap">
+		select
+			b.board_no as board_no
+			,b.member_id as member_id
+			,m.member_nm as member_nm
+			,b.board_title as board_title
+			,b.board_content as board_content 
+			,b.board_hits as board_hits
+			,b.board_savedfile as board_savedfile
+			,b.board_originfile as board_originfile
+			,to_char(b.board_indate, 'yyyy-MM-dd') as board_indate
+		from
+			board b, member m
+		where
+			b.member_id = m.member_id
+		<if test="_parameter != ''">
+		and
+			b.board_title like '%' || #{searchText} || '%'
+		</if>	
+		order by
+			b.board_no desc	
+	</select>
+	
+	<insert id="insertBoard" parameterType="board">
+		insert into
+			board(
+				board_no
+				,member_id
+				,board_title
+				,board_content
+				<if test="board_savedfile != null and board_originfile != null">
+					,board_savedfile
+					,board_originfile
+				</if>
+			)
+			values(
+				board_seq.nextval
+				,#{member_id}
+				,#{board_title}
+				,#{board_content}
+				<if test="board_savedfile != null and board_originfile != null">
+					,#{board_savedfile}
+					,#{board_originfile}
+				</if>		
+			)
+	</insert>
+	
+	<select id="selectBoardOne" parameterType="int" resultType="hashmap">
+		select
+			b.board_no as board_no
+			,b.member_id as member_id
+			,b.board_title as board_title
+			,b.board_content as board_content
+			,b.board_hits as board_hits
+			,b.board_savedfile as board_savedfile
+			,b.board_originfile as board_originfile
+			,to_char(b.board_indate, 'yyyy-MM-dd') as board_indate
+			,m.member_nm as member_nm
+		from
+			board b, member m
+		where
+			b.member_id = m.member_id
+			and
+			b.board_no = #{board.no}
+	</select>
+	
+	
+	<select id="selectTotalCount" parameterType="string" resultType="int">
+		select 
+			count(*)
+		from
+			board
+		<if test="_parameter != '' ">
+			where
+				board_title like '%' || #{searchText} || '%'
+		</if>
+	</select>
+	
+	<delete id="boardDelete" parameterType="board">
+		delete from
+			board
+		where
+			board_no = #{board_no}
+		and
+			member_id = #{member_id}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="board">
+		update
+			board
+		set
+			board_title = #{board_title}
+			,board_content = #{board_content}
+			<if test="board_savedfile != null and board_originfile != null">
+				,board_savedfile = #{board_savedfile}
+				,board_originfile = #{board_originfile}
+			</if>		
+		where
+			board_no = #{board_no}
+		and
+			member_id = #{member_id}
+	</update>
+	
+</mapper>

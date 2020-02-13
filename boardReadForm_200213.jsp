@@ -32,7 +32,7 @@
 		str += '<input type="hidden" name="board_no" value="'+board_no+'">';
 		str += '<input type="text" name="reply_content" value="'+reply_content+'">';
 		str += '<input type="submit" value="수정">';
-		str += '<input type="button" value="취소" onclick="replyCancel(\''+reply_no+'\')"">';
+		str += '<input type="button" value="취소" onclick="replyCancel(\''+reply_no+'\')">';
 		str += '</form>';
 
 		updateForm.innerHTML = str;
